@@ -364,57 +364,93 @@
 
     <!-- DOWNLOAD BUTTON SECTION -->
     <section class="flex flex-col items-center justify-center py-16 md:py-20 px-4">
-      <div class="reveal" data-delay="200">
-        <button id="downloadBtn" class="download-btn font-orbitron font-700 text-white text-lg md:text-2xl tracking-wider px-12 md:px-20 py-5 md:py-6 rounded-2xl cursor-pointer border-0 outline-none" onclick="createRipple(event)">
-          <span class="relative z-10 flex items-center gap-3">
-            <i data-lucide="download" style="width:24px;height:24px;"></i>
-            <span id="downloadText">Download Now</span>
-          </span>
-        </button>
-      </div>
-      <div class="reveal mt-5" data-delay="400">
-        <p class="font-orbitron text-xs tracking-wider" style="color:rgba(255,255,255,0.25);">v1.0.0 • Android • Free</p>
-      </div>
-    </section>
+  
+  <div class="reveal" data-delay="200">
+    
+    <a href="KingTool.apk" download
+       class="download-btn font-orbitron font-700 text-white text-lg md:text-2xl tracking-wider px-12 md:px-20 py-5 md:py-6 rounded-2xl cursor-pointer border-0 outline-none inline-block"
+       onclick="createRipple(event)">
+      
+      <span class="relative z-10 flex items-center gap-3">
+        <i data-lucide="download" style="width:24px;height:24px;"></i>
+        <span id="downloadText">Download Now</span>
+      </span>
+      
+    </a>
+
+  </div>
+
+  <div class="reveal mt-5" data-delay="400">
+    <p class="font-orbitron text-xs tracking-wider" style="color:rgba(255,255,255,0.25);">
+      v1.0.0 • Android • Free
+    </p>
+  </div>
+
+</section>
 
     <div class="glow-divider mx-auto" style="max-width:600px;"></div>
 
-    <!-- SOCIAL SECTION (Telegram + Facebook) -->
-    <section class="py-16 md:py-20 px-4">
-      <div class="reveal" data-delay="100">
-        <h2 class="font-orbitron font-700 text-center text-lg md:text-xl tracking-wider mb-8 md:mb-12" style="color: rgba(255,255,255,0.6);">
-          <i data-lucide="users" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;color:#a855f7;"></i> JOIN THE COMMUNITY
-        </h2>
-      </div>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-2xl mx-auto">
-        <!-- Telegram -->
-        <div class="reveal w-full sm:w-auto" data-delay="250">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto" onclick="event.preventDefault(); alert('📢 Telegram channel: Coming soon — Stay tuned for updates!');">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg, #2AABEE, #229ED9);">
-              <i data-lucide="send" style="width:22px;height:22px;color:white;"></i>
-            </div>
-            <div>
-              <p id="telegramText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">Join Telegram</p>
-              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">Updates & Support</p>
-            </div>
-            <i data-lucide="chevron-right" style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
-          </a>
+<!-- SOCIAL SECTION (Telegram + Facebook) -->
+<section class="py-16 md:py-20 px-4">
+  <div class="reveal" data-delay="100">
+    <h2 class="font-orbitron font-700 text-center text-lg md:text-xl tracking-wider mb-8 md:mb-12" style="color: rgba(255,255,255,0.6);">
+      <i data-lucide="users" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;color:#a855f7;"></i> JOIN THE COMMUNITY
+    </h2>
+  </div>
+
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-2xl mx-auto">
+
+    <!-- Telegram -->
+    <div class="reveal w-full sm:w-auto" data-delay="250">
+      <a href="https://t.me/SB_MOD" target="_blank" rel="noopener noreferrer"
+         class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto">
+        
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+             style="background:linear-gradient(135deg, #2AABEE, #229ED9);">
+          <i data-lucide="send" style="width:22px;height:22px;color:white;"></i>
         </div>
-        <!-- Facebook مع صورة المستخدم -->
-        <div class="reveal w-full sm:w-auto" data-delay="400">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto" onclick="event.preventDefault(); alert('👍 Facebook Page: King Tool Community — Follow for news!');">
-            <div class="fb-avatar w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-              <img src="images/fb_avatar.png" alt="Facebook Avatar" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/128x128/1a1a2e/ff2d78?text=FB'">
-            </div>
-            <div>
-              <p id="facebookText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">Follow on Facebook</p>
-              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">News & Highlights</p>
-            </div>
-            <i data-lucide="chevron-right" style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
-          </a>
+
+        <div>
+          <p id="telegramText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">
+            Join Telegram
+          </p>
+          <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">
+            Updates & Support
+          </p>
         </div>
-      </div>
-    </section>
+
+        <i data-lucide="chevron-right"
+           style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
+      </a>
+    </div>
+
+    <!-- Facebook -->
+    <div class="reveal w-full sm:w-auto" data-delay="400">
+      <a href="https://www.facebook.com/share/186FZBPens/" target="_blank" rel="noopener noreferrer"
+         class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto">
+        
+        <div class="fb-avatar w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+          <img src="images/fb_avatar.png" alt="Facebook Avatar"
+               class="w-full h-full object-cover"
+               onerror="this.src='https://placehold.co/128x128/1a1a2e/ff2d78?text=FB'">
+        </div>
+
+        <div>
+          <p id="facebookText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">
+            Follow on Facebook
+          </p>
+          <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">
+            News & Highlights
+          </p>
+        </div>
+
+        <i data-lucide="chevron-right"
+           style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
 
     <!-- GLOW DIVIDER before PREMIUM FEATURES -->
     <div class="glow-divider mx-auto" style="max-width:600px;"></div>
