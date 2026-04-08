@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>King Tool | Ultimate GFX Booster</title>
+  <!-- Tailwind + Lucide + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --neon-pink: #ff2d78;
+      --neon-purple: #a855f7;
+      --neon-cyan: #06d6f0;
+      --bg-dark: #06060e;
+      --surface: rgba(255,255,255,0.04);
+    }
+
+    body {
+      background: var(--bg-dark);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+
+    /* Hero animated gradient background */
+    .hero-bg {
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,45,120,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(168,85,247,0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 20% 60%, rgba(6,214,240,0.06) 0%, transparent 50%);
+      animation: bgShift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    /* Particles canvas */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Neon text glows */
+    .neon-title {
+      text-shadow: 0 0 10px rgba(255,45,120,0.5), 0 0 40px rgba(255,45,120,0.3), 0 0 80px rgba(255,45,120,0.15);
+    }
+
+    .neon-subtitle {
+      text-shadow: 0 0 8px rgba(6,214,240,0.4), 0 0 30px rgba(6,214,240,0.2);
+    }
+
+    /* Glass card with hover effects */
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,45,120,0.2);
+      box-shadow: 0 0 20px rgba(255,45,120,0.1), inset 0 0 20px rgba(255,255,255,0.02);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255,45,120,0.6);
+      box-shadow: 0 0 40px rgba(255,45,120,0.25), 0 8px 32px rgba(0,0,0,0.4);
+      transform: scale(1.02) translateY(-4px);
+    }
+
+    /* Floating animations for screenshots */
+    .float-1 { animation: float 4s ease-in-out infinite; }
+    .float-2 { animation: float 4.5s ease-in-out infinite 0.5s; }
+    .float-3 { animation: float 5s ease-in-out infinite 1s; }
+    .float-4 { animation: float 4.2s ease-in-out infinite 1.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Professional crown icon - static but premium */
+    .prestige-crown {
+      filter: drop-shadow(0 0 8px rgba(255,45,120,0.7));
+      transition: all 0.25s ease;
+    }
+
+    .prestige-crown:hover {
+      filter: drop-shadow(0 0 16px rgba(255,45,120,0.9));
+      transform: scale(1.02);
+    }
+
+    /* Download button */
+    .download-btn {
+      position: relative;
+      background: linear-gradient(135deg, #ff2d78, #a855f7);
+      box-shadow: 0 0 30px rgba(255,45,120,0.4), 0 0 60px rgba(255,45,120,0.2);
+      animation: btnPulse 2.5s ease-in-out infinite;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      box-shadow: 0 0 50px rgba(255,45,120,0.6), 0 0 100px rgba(255,45,120,0.3);
+      transform: scale(1.05);
+    }
+
+    @keyframes btnPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(255,45,120,0.4), 0 0 60px rgba(255,45,120,0.2); }
+      50% { box-shadow: 0 0 50px rgba(255,45,120,0.6), 0 0 100px rgba(255,45,120,0.3), 0 0 140px rgba(255,45,120,0.1); }
+    }
+
+    /* Ripple effect */
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Social buttons */
+    .social-btn {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,45,120,0.2);
+      transition: all 0.35s ease;
+      overflow: hidden;
+    }
+
+    .social-btn:hover {
+      border-color: rgba(255,45,120,0.5);
+      box-shadow: 0 0 25px rgba(255,45,120,0.2);
+      transform: translateY(-3px);
+      background: rgba(255,45,120,0.05);
+    }
+
+    .fb-avatar {
+      border: 2px solid rgba(255,45,120,0.4);
+      box-shadow: 0 0 12px rgba(255,45,120,0.2);
+      transition: all 0.35s ease;
+    }
+
+    .social-btn:hover .fb-avatar {
+      border-color: rgba(255,45,120,0.8);
+      box-shadow: 0 0 20px rgba(255,45,120,0.4);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Light streak animation */
+    .light-streak {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .light-streak::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 2000px;
+      background: linear-gradient(180deg, transparent, rgba(255,45,120,0.03), rgba(168,85,247,0.02), transparent);
+      transform: rotate(25deg);
+      animation: streakMove 12s linear infinite;
+      left: -200px;
+    }
+
+    @keyframes streakMove {
+      0% { left: -200px; top: -500px; }
+      100% { left: 120%; top: -500px; }
+    }
+
+    /* Feature cards staggered animation */
+    .feature-card {
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,45,120,0.15);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.05s; }
+    .feature-card:nth-child(2) { animation-delay: 0.15s; }
+    .feature-card:nth-child(3) { animation-delay: 0.25s; }
+    .feature-card:nth-child(4) { animation-delay: 0.35s; }
+    .feature-card:nth-child(5) { animation-delay: 0.45s; }
+    .feature-card:nth-child(6) { animation-delay: 0.55s; }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255,45,120,0.4);
+      box-shadow: 0 0 30px rgba(255,45,120,0.15);
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .feature-icon {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.15) rotate(3deg);
+      filter: drop-shadow(0 0 12px rgba(255,45,120,0.4));
+    }
+
+    .glow-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,45,120,0.4), rgba(168,85,247,0.3), rgba(6,214,240,0.3), transparent);
+      box-shadow: 0 0 12px rgba(255,45,120,0.2);
+    }
+
+    /* Screenshot styling */
+    .screenshot-placeholder {
+      background: linear-gradient(145deg, rgba(255,45,120,0.05), rgba(168,85,247,0.05));
+      cursor: pointer;
+    }
+
+    .screenshot-inner {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    /* App logo styling */
+    .app-logo {
+      filter: drop-shadow(0 0 12px rgba(255,45,120,0.5));
+      transition: all 0.3s ease;
+    }
+    .app-logo:hover {
+      filter: drop-shadow(0 0 20px rgba(255,45,120,0.8));
+      transform: scale(1.02);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #06060e; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,45,120,0.3); border-radius: 3px; }
+
+    /* Dynamic scroll light */
+    .scroll-light {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,45,120,0.06), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transition: top 0.5s ease-out;
+    }
+  </style>
+</head>
+<body class="h-full">
+  <canvas id="particles"></canvas>
+  <div class="light-streak"></div>
+  <div class="scroll-light" id="scrollLight"></div>
+
+  <div id="app-wrapper" class="relative z-10 w-full h-full overflow-auto hero-bg">
+    <!-- HERO SECTION -->
+    <section class="relative flex flex-col items-center justify-center text-center px-4 pt-20 pb-12 md:pt-28 md:pb-16">
+      <!-- Decorative ring -->
+      <div class="absolute top-8 w-40 h-40 rounded-full border border-pink-500/10" style="filter: blur(1px); animation: float 6s ease-in-out infinite;"></div>
+      <div class="reveal" data-delay="0">
+        <!-- شعار التطبيق (صورة من مجلد images) ونفس الصورة تمثل شعار الموقع -->
+        <img src="images/app_logo.png" alt="King Tool Logo" class="app-logo w-24 h-24 md:w-32 md:h-32 rounded-2xl mx-auto mb-4 object-cover" style="box-shadow: 0 0 30px rgba(255,45,120,0.3);">
+        <h1 id="heroTitle" class="font-orbitron font-900 text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight neon-title flex items-center justify-center gap-3 md:gap-4 flex-wrap" style="color: #ff2d78;">
+          King Tool
+        </h1>
+      </div>
+      <div class="reveal mt-4 md:mt-6" data-delay="200">
+        <p id="heroSubtitle" class="font-orbitron font-500 text-base sm:text-lg md:text-2xl tracking-widest uppercase neon-subtitle" style="color: #06d6f0;">Ultimate GFX & Performance Booster</p>
+      </div>
+      <div class="reveal mt-6 w-24 md:w-40 glow-divider" data-delay="300"></div>
+      <div class="reveal mt-5" data-delay="400">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-orbitron font-600 tracking-wider" style="background: rgba(255,45,120,0.1); border: 1px solid rgba(255,45,120,0.25); color: #ff7aa8;">
+          <i data-lucide="zap" style="width:14px;height:14px;"></i> PREMIUM GAMING TOOL
+        </span>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS SECTION (صور من مجلد images) -->
+    <section class="px-4 pb-12 md:pb-20">
+      <div class="reveal" data-delay="200">
+        <h2 class="font-orbitron font-700 text-center text-lg md:text-xl tracking-wider mb-8 md:mb-12" style="color: rgba(255,255,255,0.6);">
+          <i data-lucide="monitor-smartphone" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;color:#ff2d78;"></i> APP PREVIEW
+        </h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+        <!-- صورة 1 -->
+        <div class="reveal float-1" data-delay="300">
+          <div class="glass-card rounded-2xl md:rounded-3xl p-2 md:p-3 screenshot-placeholder">
+            <div class="screenshot-inner rounded-xl md:rounded-2xl overflow-hidden flex items-center justify-center" style="aspect-ratio:9/16;">
+              <img src="images/app_screen_1.webp" alt="App Screen 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x533/1a1a2e/ff2d78?text=Screen+1'">
+            </div>
+          </div>
+        </div>
+        <!-- صورة 2 -->
+        <div class="reveal float-2" data-delay="450">
+          <div class="glass-card rounded-2xl md:rounded-3xl p-2 md:p-3 screenshot-placeholder">
+            <div class="screenshot-inner rounded-xl md:rounded-2xl overflow-hidden flex items-center justify-center" style="aspect-ratio:9/16;">
+              <img src="images/app_screen_2.webp" alt="App Screen 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x533/1a1a2e/a855f7?text=Screen+2'">
+            </div>
+          </div>
+        </div>
+        <!-- صورة 3 -->
+        <div class="reveal float-3" data-delay="600">
+          <div class="glass-card rounded-2xl md:rounded-3xl p-2 md:p-3 screenshot-placeholder">
+            <div class="screenshot-inner rounded-xl md:rounded-2xl overflow-hidden flex items-center justify-center" style="aspect-ratio:9/16;">
+              <img src="images/app_screen_3.webp" alt="App Screen 3" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x533/1a1a2e/06d6f0?text=Screen+3'">
+            </div>
+          </div>
+        </div>
+        <!-- صورة 4 -->
+        <div class="reveal float-4" data-delay="750">
+          <div class="glass-card rounded-2xl md:rounded-3xl p-2 md:p-3 screenshot-placeholder">
+            <div class="screenshot-inner rounded-xl md:rounded-2xl overflow-hidden flex items-center justify-center" style="aspect-ratio:9/16;">
+              <img src="images/app_screen_4.webp" alt="App Screen 4" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x533/1a1a2e/ff2d78?text=Screen+4'">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-[10px] font-orbitron mt-6 tracking-wide" style="color:rgba(255,255,255,0.2);">📸 Real screenshots from source — UI interface & gaming stats</p>
+    </section>
+
+    <div class="glow-divider mx-auto" style="max-width:600px;"></div>
+
+    <!-- DOWNLOAD BUTTON SECTION -->
+    <section class="flex flex-col items-center justify-center py-16 md:py-20 px-4">
+      <div class="reveal" data-delay="200">
+        <button id="downloadBtn" class="download-btn font-orbitron font-700 text-white text-lg md:text-2xl tracking-wider px-12 md:px-20 py-5 md:py-6 rounded-2xl cursor-pointer border-0 outline-none" onclick="createRipple(event)">
+          <span class="relative z-10 flex items-center gap-3">
+            <i data-lucide="download" style="width:24px;height:24px;"></i>
+            <span id="downloadText">Download Now</span>
+          </span>
+        </button>
+      </div>
+      <div class="reveal mt-5" data-delay="400">
+        <p class="font-orbitron text-xs tracking-wider" style="color:rgba(255,255,255,0.25);">v1.0.0 • Android • Free</p>
+      </div>
+    </section>
+
+    <div class="glow-divider mx-auto" style="max-width:600px;"></div>
+
+    <!-- SOCIAL SECTION (Telegram + Facebook) -->
+    <section class="py-16 md:py-20 px-4">
+      <div class="reveal" data-delay="100">
+        <h2 class="font-orbitron font-700 text-center text-lg md:text-xl tracking-wider mb-8 md:mb-12" style="color: rgba(255,255,255,0.6);">
+          <i data-lucide="users" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;color:#a855f7;"></i> JOIN THE COMMUNITY
+        </h2>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-2xl mx-auto">
+        <!-- Telegram -->
+        <div class="reveal w-full sm:w-auto" data-delay="250">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto" onclick="event.preventDefault(); alert('📢 Telegram channel: Coming soon — Stay tuned for updates!');">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg, #2AABEE, #229ED9);">
+              <i data-lucide="send" style="width:22px;height:22px;color:white;"></i>
+            </div>
+            <div>
+              <p id="telegramText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">Join Telegram</p>
+              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">Updates & Support</p>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
+          </a>
+        </div>
+        <!-- Facebook مع صورة المستخدم -->
+        <div class="reveal w-full sm:w-auto" data-delay="400">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn flex items-center gap-4 px-6 py-4 rounded-2xl no-underline w-full sm:w-auto" onclick="event.preventDefault(); alert('👍 Facebook Page: King Tool Community — Follow for news!');">
+            <div class="fb-avatar w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+              <img src="images/fb_avatar.png" alt="Facebook Avatar" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/128x128/1a1a2e/ff2d78?text=FB'">
+            </div>
+            <div>
+              <p id="facebookText" class="font-orbitron font-600 text-sm tracking-wider" style="color:#fff;">Follow on Facebook</p>
+              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.35);">News & Highlights</p>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:rgba(255,255,255,0.2);margin-left:auto;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLOW DIVIDER before PREMIUM FEATURES -->
+    <div class="glow-divider mx-auto" style="max-width:600px;"></div>
+
+    <!-- PREMIUM FEATURES SECTION -->
+    <section class="py-16 md:py-24 px-4">
+      <div class="reveal" data-delay="100">
+        <h2 class="font-orbitron font-700 text-center text-lg md:text-xl tracking-wider mb-8 md:mb-12" style="color: rgba(255,255,255,0.6);">
+          <i data-lucide="star" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;color:#ff2d78;"></i> PREMIUM FEATURES
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(255,45,120,0.2), rgba(168,85,247,0.15));"><i data-lucide="zap" style="width:22px;height:22px;color:#ff2d78;"></i></div>
+            <div class="flex-1"><h3 id="feature1Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Ultra FPS Boost</h3><p id="feature1Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Unlock extreme performance</p></div>
+          </div>
+        </div>
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(6,214,240,0.15));"><i data-lucide="palette" style="width:22px;height:22px;color:#a855f7;"></i></div>
+            <div class="flex-1"><h3 id="feature2Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Advanced Graphics</h3><p id="feature2Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Premium visual enhancements</p></div>
+          </div>
+        </div>
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(6,214,240,0.2), rgba(255,45,120,0.15));"><i data-lucide="settings" style="width:22px;height:22px;color:#06d6f0;"></i></div>
+            <div class="flex-1"><h3 id="feature3Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Game Optimizer</h3><p id="feature3Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Auto-optimize settings</p></div>
+          </div>
+        </div>
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(255,45,120,0.2), rgba(168,85,247,0.15));"><i data-lucide="thermometer" style="width:22px;height:22px;color:#ff2d78;"></i></div>
+            <div class="flex-1"><h3 id="feature4Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Thermal Control</h3><p id="feature4Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Keep device cool</p></div>
+          </div>
+        </div>
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(6,214,240,0.15));"><i data-lucide="battery" style="width:22px;height:22px;color:#a855f7;"></i></div>
+            <div class="flex-1"><h3 id="feature5Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Battery Saver</h3><p id="feature5Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Extended gameplay time</p></div>
+          </div>
+        </div>
+        <div class="feature-card reveal rounded-2xl p-6 md:p-7" data-delay="150">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon" style="background: linear-gradient(135deg, rgba(6,214,240,0.2), rgba(255,45,120,0.15));"><i data-lucide="bar-chart-2" style="width:22px;height:22px;color:#06d6f0;"></i></div>
+            <div class="flex-1"><h3 id="feature6Title" class="font-orbitron font-600 text-sm md:text-base tracking-wider" style="color:#fff;">Pro Analytics</h3><p id="feature6Desc" class="text-xs md:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45);">Real-time performance stats</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 px-4">
+      <div class="glow-divider mx-auto mb-6" style="max-width:300px;"></div>
+      <p class="font-orbitron text-xs tracking-widest" style="color:rgba(255,255,255,0.15);">© 2025 KING TOOL — ALL RIGHTS RESERVED</p>
+    </footer>
+  </div>
+
+  <script>
+    // Particles background
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class ParticleItem {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = -(Math.random() * 0.3 + 0.1);
+        this.speedX = (Math.random() - 0.5) * 0.2;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.color = ['255,45,120', '168,85,247', '6,214,240'][Math.floor(Math.random() * 3)];
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y < -10) { this.reset(); this.y = canvas.height + 10; }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 60; i++) particlesArray.push(new ParticleItem());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Ripple effect
+    function createRipple(e) {
+      const btn = e.currentTarget;
+      const circle = document.createElement('span');
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + 'px';
+      circle.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      circle.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      circle.classList.add('ripple-effect');
+      btn.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+      alert('⚡ Download started! King Tool APK v1.0.0 will be available soon. Stay connected.');
+    }
+    window.createRipple = createRipple;
+
+    // Scroll reveal
+    const wrapper = document.getElementById('app-wrapper');
+    function checkReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const wRect = wrapper.getBoundingClientRect();
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const delay = parseInt(el.dataset.delay || 0);
+        if (rect.top < wRect.bottom - 40) {
+          setTimeout(() => el.classList.add('visible'), delay);
+        }
+      });
+    }
+    wrapper.addEventListener('scroll', checkReveal);
+    setTimeout(checkReveal, 100);
+
+    // Dynamic scroll light
+    const scrollLight = document.getElementById('scrollLight');
+    wrapper.addEventListener('scroll', () => {
+      const scrollY = wrapper.scrollTop;
+      scrollLight.style.top = (scrollY * 0.3) + 'px';
+      scrollLight.style.left = '50%';
+      scrollLight.style.transform = 'translateX(-50%)';
+    });
+
+    // Lucide icons
+    setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 50);
+    window.addEventListener('load', () => { if (window.lucide) lucide.createIcons(); });
+
+    console.log('King Tool v1.0.0 | Ready for upload — All images from /images folder');
+  </script>
+</body>
+</html>
+```
